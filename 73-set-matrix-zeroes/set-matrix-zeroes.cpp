@@ -1,23 +1,27 @@
 class Solution {
 public:
     void setZeroes(vector<vector<int>>& mat) {
+        int zerocol = 0;
         int n = mat.size();
         int m = mat[0].size();
-        vector<int> row(n, 0);
-        vector<int> col(m, 0);
-
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < m; j++) {
-                if(!mat[i][j]) {
-                    row[i] = 1;
-                    col[j] = 1;
-                }
+                if(mat[i][j] == 0) {
+                    if(j == 0) zerocol = 1;
+                    else {
+                        mat[i][0] = 0;
+                        mat[0][j] = 0;
+                    }
+                } 
             }
         }
 
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < m; j++) {
-                if(row[i] || col[j]) {
+        for(int i = n-1; i >= 0; i--) {
+            for(int j = m-1; j >= 0; j--) {
+                if(j == 0) {
+                    if(zerocol) mat[i][j] = 0;
+                }
+                else if(!mat[0][j] || !mat[i][0]) {
                     mat[i][j] = 0;
                 }
             }
