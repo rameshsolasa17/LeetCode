@@ -1,22 +1,22 @@
 class Solution {
 public:
-    int mergeIntervals(vector<vector<int>> i) {
+    bool mergeIntervals(vector<vector<int>> i) {
         sort(i.begin(), i.end());
-        vector<int> temp = i[0];
+        int temp = i[0][1];
         int res = 1;
         int n = i.size();
 
         for(int j = 1; j < n; j++) {
-            if(temp[1] <= i[j][0]) {
+            if(temp <= i[j][0]) {
                 res++;
-                // cout<<temp[0]<<' '<<temp[1]<<'\n';
-                temp = i[j];
+                if(res>=3) return true;
+                temp = i[j][1];
             }
             else {
-                temp[1] = max(temp[1], i[j][1]);
+                temp = max(temp, i[j][1]);
             }
         }
-        return res;
+        return false;
     }
     bool checkValidCuts(int n, vector<vector<int>>& rect) {
         vector<vector<int>> x, y;
@@ -24,8 +24,8 @@ public:
             x.push_back({it[0], it[2]});
             y.push_back({it[1], it[3]});
         }
-        if(mergeIntervals(x) >= 3) return true;
-        if(mergeIntervals(y) >= 3) return true;
+        if(mergeIntervals(x)) return true;
+        if(mergeIntervals(y)) return true;
         return false;
     }
 };
