@@ -88,3 +88,9 @@ public:
         return res;
     }
 };
+
+//KEY LEARNINGS
+/*
+    1) monotonic
+    2) multiply in line 79
+*/
