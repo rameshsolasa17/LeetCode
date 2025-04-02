@@ -1,18 +1,13 @@
 class Solution {
 public:
+    long long fun(int i, vector<vector<int>>& q, vector<long long> &dp) {
+        if(i >= q.size()) return 0;
+        if(dp[i] != -1) return dp[i];
+        return dp[i] = max(q[i][0] + fun(i+q[i][1]+1, q, dp), fun(i+1, q, dp));
+    }
     long long mostPoints(vector<vector<int>>& q) {
-        vector<long long> dp(q.size(), 0);
-        for (int i = q.size() - 1; i >= 0; i--) {
-            int index = i + q[i][1] + 1;
-            if (index < q.size()) {
-                dp[i] = dp[index] + q[i][0];
-            } else {
-                dp[i] = q[i][0];
-            }
-            if (i < q.size() - 1) {
-                dp[i] = max(dp[i + 1], dp[i]);
-            }
-        }
-        return dp[0];
+        int n = q.size();
+        vector<long long> dp(n+1, -1);
+        return fun(0, q, dp);
     }
 };
