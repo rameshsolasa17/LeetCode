@@ -9,11 +9,14 @@ public:
         if(i == nums.size()) return;
         if(t > k) return ;
 
-        fun(i+1, t, temp, nums, k, res);
+        
         temp.push_back(nums[i]);
         t+=nums[i];
-        // fun(i+1, t, temp, nums, k, res);
         fun(i, t, temp, nums, k, res);
+        t-=nums[i];
+        temp.pop_back();
+
+        fun(i+1, t, temp, nums, k, res);
     }
     vector<vector<int>> combinationSum(vector<int>& nums, int k) {
         vector<vector<int>> res;
