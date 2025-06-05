@@ -8,13 +8,13 @@ public:
 
         if(i == nums.size()) return ;
 
-        if(t>=n) return ;
-        if(temp.size()>=k) return ;
         fun(i+1, t, nums, temp, res, k, n);
-        t+=nums[i];
-        temp.push_back(nums[i]);
-        fun(i+1, t, nums, temp, res, k, n);
-
+        
+        if(t < n && temp.size() < k) {
+            t+=nums[i];
+            temp.push_back(nums[i]);
+            fun(i+1, t, nums, temp, res, k, n);
+        }
     }
     vector<vector<int>> combinationSum3(int k, int n) {
         vector<int> nums = {1, 2, 3, 4, 5, 6, 7, 8, 9};
