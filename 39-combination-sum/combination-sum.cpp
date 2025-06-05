@@ -7,14 +7,16 @@ public:
         }
 
         if(i == nums.size()) return;
-        if(t > k) return ;
+        if(t+nums[i] <=  k) {
+            temp.push_back(nums[i]);
+            t+=nums[i];
+            fun(i, t, temp, nums, k, res);
+            t-=nums[i];
+            temp.pop_back();
+        }
 
         
-        temp.push_back(nums[i]);
-        t+=nums[i];
-        fun(i, t, temp, nums, k, res);
-        t-=nums[i];
-        temp.pop_back();
+        
 
         fun(i+1, t, temp, nums, k, res);
     }
