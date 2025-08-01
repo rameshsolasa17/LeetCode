@@ -1,23 +1,24 @@
 class Solution {
 public:
-    vector<int> row(int n) {
-        vector<int> res;
+    int cell(int x, int y) {
         int temp = 1;
-        for(int i = 0; i < n; i++) {
-            res.push_back(temp);
-
-            temp*=(n-i-1);
-            temp/=(i+1);
-
+        for(int i = 1; i <= y; i++) {
+            temp*=(x-i+1);
+            temp/=i;
         }
 
-        return res;
+        return temp;
     }
     vector<vector<int>> generate(int n) {
-        // 2nd variation
+        // 3rd variation
         vector<vector<int>> res;
-        for(int i = 1; i <= n; i++) {
-            res.push_back(row(i));
+
+        for(int i = 0; i < n; i++) {
+            vector<int> temp;
+            for(int j=0;j<=i;j++) {
+                temp.push_back(cell(i, j));
+            }
+            res.push_back(temp);
         }
         return res;
 
