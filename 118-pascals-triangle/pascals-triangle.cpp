@@ -1,21 +1,32 @@
 class Solution {
 public:
     vector<vector<int>> generate(int n) {
-        vector<vector<int>> res(n, vector<int> (n, 0));
-        for(int i = 1; i <= n; i++) {
-            res[i-1].resize(i);
-            res[i-1][0] = 1;
-            res[i-1][i-1] = 1;
+        // 1st variation
+        vector<vector<int>> res;
+        res.push_back({1});
+        n-=1;
 
-            for(int j = 1; j < i-1; j++) {
-                res[i-1][j] = res[i-2][j-1] + res[i-2][j];
+        for(int i = 1; i <= n; i++) {
+            vector<int> temp;
+            temp.push_back(1);
+            for(int j = 1; j <= i-1; j++) {
+                temp.push_back(res[i-1][j-1] + res[i-1][j]);
             }
+            temp.push_back(1);
+
+            res.push_back(temp);
         }
+
         return res;
+
     }
 };
 
+
+
 /*
-    TC = O(n^2)
-    SC = O(n^2)
+Three variations,
+1 -> Build entire pascal triangle
+2 -> Build single row
+3 -> return single element
 */
