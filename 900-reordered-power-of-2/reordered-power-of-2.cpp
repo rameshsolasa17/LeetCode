@@ -1,36 +1,26 @@
 class Solution {
 public:
     bool reorderedPowerOf2(int n) {
-        unordered_map<int, int> mp;
+        // unordered_map<int, int> mp;
+        vector<int> mp;
         while(n) {
-            mp[n%10]++;
+            mp.push_back(n%10);
             n/=10;
         }
+        sort(mp.begin(), mp.end());
 
         for(int i = 0; i <= 30; i++) {
             long long temp = 1<<i;
-            unordered_map<int, int> temp_mp;
+            vector<int> temp_mp;
             while(temp) {
-                temp_mp[temp%10]++;
+                temp_mp.push_back(temp%10);
                 temp/=10;
             }
-            int f = 0;
 
-            for(auto it: mp) {
-                if(it.second != temp_mp[it.first]) {
-                    f=1;
-                    break;
-                }
-            }
+            sort(temp_mp.begin(), temp_mp.end());
 
-            for(auto it: temp_mp) {
-                if(it.second != mp[it.first]) {
-                    f=1;
-                    break;
-                }
-            }
+            if(mp == temp_mp) return true;
 
-            if(f == 0) return true;
         }
 
         return false;
